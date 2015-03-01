@@ -1,0 +1,33 @@
+<link rel="import" href="memol-card.html">
+
+<polymer-element name="memol-card-list" attributes="items">
+  <template>
+    <style>
+      .memol-card-list {
+        margin: 10px 0 0 10px;
+      }
+    </style>
+    <div class="memol-card-list" flex horizontal wrap layout>
+      <template repeat="{{item in items}}">
+        <memol-card
+          text="{{item.text}}"
+          color="{{item.color}}">
+        </memol-card>
+      </template>
+    </div>
+  </template>
+  <script>
+    Polymer('memol-card-list', {
+      items: [],
+      ready: function() {
+        var colors = ['yellow', 'blue', 'green', 'pink'];
+        for (var i = 0; i < 10; i++) {
+          this.items.push({
+            text: 'メロスは激怒した。必ず、かの邪智暴虐の王を除かなければならぬと決意した。メロスには政治がわからぬ。メロスは、村の牧人である。笛を吹き、羊と遊んで暮して来た。けれども邪悪に対しては、人一倍に敏感であった。',
+            color: colors[(Math.random() * colors.length) >>> 0]}
+          );
+        };
+      }
+    });
+  </script>
+</polymer-element>
