@@ -11,13 +11,23 @@
     <title>memol</title>
   </head>
   <body unresolved fullbleed>
+    <template is="auto-binding">
 
-    <core-toolbar>
-      <div flex>memol</div>
-      <core-icon-button icon="add"></core-icon-button>
-    </core-toolbar>
+      <core-toolbar>
+        <div flex>memol</div>
+        <core-icon-button icon="add" on-tap="{{onTapAddButton}}"></core-icon-button>
+      </core-toolbar>
 
-    <memol-card-list></memol-card-list>
+      <memol-card-list></memol-card-list>
+
+    </template>
+    <script>
+      // https://www.polymer-project.org/docs/polymer/databinding-advanced.html
+      var scope = document.querySelector('template[is=auto-binding]');
+      scope.onTapAddButton = function() {
+        console.log('onTapAddButton');
+      };
+    </script>
 
   </body>
 </html>

@@ -17,11 +17,26 @@
       .bgcolor-blue   { background-color: #A3F2FF; }
       .bgcolor-green  { background-color: #A9FF97; }
       .bgcolor-pink   { background-color: #FFBFC0; }
+      .memol-card .text textarea {
+        background: none;
+        border: 0;
+        width: 100%;
+        height: 100px;
+        resize: none;
+      }
       .memol-card .edit {
         margin-top: 10px;
         font-size: 80%;
         text-align: right;
+      }
+      .memol-card .edit .update, .memol-card .edit .delete {
+        display: inline-block;
+        margin-left: 0.5rem;
+        cursor: pointer;
         text-decoration: underline;
+      }
+      .memol-card .edit .update:hover, .memol-card .edit .delete:hover {
+        text-decoration: none;
       }
       @media (min-width: 500px) {
         :host {
@@ -36,17 +51,24 @@
     </style>
     <div class="memol-card bgcolor-{{color}}" vertical layout>
       <div class="text">
-        {{text}}
+        <textarea on-change="{{onChangeText}}">{{text}}</textarea>
       </div>
       <div class="edit">
-        削除
+        <span class="delete" on-tap="{{onTapDelete}}">削除</span>
       </div>
     </div>
   </template>
   <script>
     Polymer('memol-card', {
+      uuid: '',
       text: '',
       color: '',
+      onChangeText: function(e) {
+        console.log('onChangeText');
+      },
+      onTapDelete: function(e) {
+        console.log('onTapDelete');
+      }
     });
   </script>
 </polymer-element>
