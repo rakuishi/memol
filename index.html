@@ -15,7 +15,7 @@
 
       <core-toolbar>
         <div flex>memol</div>
-        <core-icon-button icon="add" on-tap="{{onTapAddButton}}"></core-icon-button>
+        <core-icon-button icon="add" on-tap="{{onTap}}"></core-icon-button>
       </core-toolbar>
 
       <memol-card-list></memol-card-list>
@@ -24,7 +24,7 @@
     <script>
       // https://www.polymer-project.org/articles/communication.html#utilizing-event-delegation
       var scope = document.querySelector('template[is=auto-binding]');
-      scope.onTapAddButton = function() {
+      scope.onTap = function() {
         var memol = document.querySelector('memol-card-list');
         memol.fire('insert');
       };
