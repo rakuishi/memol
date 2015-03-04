@@ -1,6 +1,6 @@
 <link rel="import" href="memol-card.html">
 
-<polymer-element name="memol-card-list" attributes="items">
+<polymer-element name="memol-card-list" attributes="items" on-insert="{{insert}}">
   <template>
     <style>
       .memol-card-list {
@@ -10,8 +10,10 @@
     <div class="memol-card-list" flex horizontal wrap layout>
       <template repeat="{{item in items}}">
         <memol-card
-          text="{{item.text}}"
-          color="{{item.color}}">
+          item="{{item}}"
+          on-insert="{{insert}}"
+          on-update="{{update}}"
+          on-delete="{{delete}}">
         </memol-card>
       </template>
     </div>
@@ -20,13 +22,23 @@
     Polymer('memol-card-list', {
       items: [],
       ready: function() {
-        var colors = ['yellow', 'blue', 'green', 'pink'];
+        var themes = ['yellow', 'blue', 'green', 'pink'];
         for (var i = 0; i < 10; i++) {
           this.items.push({
+            uuid: i,
             text: 'メロスは激怒した。必ず、かの邪智暴虐の王を除かなければならぬと決意した。メロスには政治がわからぬ。メロスは、村の牧人である。笛を吹き、羊と遊んで暮して来た。けれども邪悪に対しては、人一倍に敏感であった。',
-            color: colors[(Math.random() * colors.length) >>> 0]}
+            theme: themes[(Math.random() * themes.length) >>> 0]}
           );
         };
+      },
+      insert: function(event, detail, sender) {
+        console.log('insert');
+      },
+      update: function(event, detail, sender) {
+        console.log('update => ' + detail.uuid);
+      },
+      delete: function (event, detail, sender) {
+        console.log('delete => ' + detail.uuid);
       }
     });
   </script>

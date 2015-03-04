@@ -22,10 +22,11 @@
 
     </template>
     <script>
-      // https://www.polymer-project.org/docs/polymer/databinding-advanced.html
+      // https://www.polymer-project.org/articles/communication.html#utilizing-event-delegation
       var scope = document.querySelector('template[is=auto-binding]');
       scope.onTapAddButton = function() {
-        console.log('onTapAddButton');
+        var memol = document.querySelector('memol-card-list');
+        memol.fire('insert');
       };
     </script>
 

@@ -1,4 +1,4 @@
-<polymer-element name="memol-card" attributes="text color">
+<polymer-element name="memol-card" attributes="item">
   <template>
     <style>
       :host {
@@ -13,10 +13,10 @@
         background-color: #FEF292;
         border-radius: 4px;
       }
-      .bgcolor-yellow { background-color: #FEF292; }
-      .bgcolor-blue   { background-color: #A3F2FF; }
-      .bgcolor-green  { background-color: #A9FF97; }
-      .bgcolor-pink   { background-color: #FFBFC0; }
+      .memol-card.bgcolor-yellow { background-color: #FEF292; }
+      .memol-card.bgcolor-blue   { background-color: #A3F2FF; }
+      .memol-card.bgcolor-green  { background-color: #A9FF97; }
+      .memol-card.bgcolor-pink   { background-color: #FFBFC0; }
       .memol-card .text textarea {
         background: none;
         border: 0;
@@ -49,25 +49,27 @@
         }
       }
     </style>
-    <div class="memol-card bgcolor-{{color}}" vertical layout>
+    <div class="memol-card bgcolor-{{item.theme}}" vertical layout>
       <div class="text">
-        <textarea on-change="{{onChangeText}}">{{text}}</textarea>
+        <textarea on-change="{{onChange}}">{{item.text}}</textarea>
       </div>
       <div class="edit">
-        <span class="delete" on-tap="{{onTapDelete}}">削除</span>
+        <span class="delete" on-tap="{{onTap}}">Delete</span>
       </div>
     </div>
   </template>
   <script>
     Polymer('memol-card', {
-      uuid: '',
-      text: '',
-      color: '',
-      onChangeText: function(e) {
-        console.log('onChangeText');
+      item: [],
+      onChange: function(event, detail, sender) {
+        this.fire('update', {
+          uuid: this.item.uuid
+        });
       },
-      onTapDelete: function(e) {
-        console.log('onTapDelete');
+      onTap: function(event, detail, sender) {
+        this.fire('delete', {
+          uuid: this.item.uuid
+        });
       }
     });
   </script>
