@@ -1,0 +1,27 @@
+{
+  "name": "memol",
+  "version": "0.1",
+  "homepage": "https://github.com/rakuishi/memol",
+  "authors": [
+    "rakuishi <rakuishi@gmail.com>"
+  ],
+  "main": "index.html",
+  "keywords": [
+    "polymer",
+    "web-components"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^0.5",
+    "core-icon-button": "Polymer/core-icon-button#^0.5",
+    "core-toolbar": "Polymer/core-toolbar#^0.5",
+    "polymer-idb": "agektmr/polymer-idb#^0.1.0"
+  }
+}
