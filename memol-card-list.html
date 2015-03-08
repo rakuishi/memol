@@ -1,4 +1,5 @@
 <link rel="import" href="memol-card.html">
+<link rel="import" href="bower_components/polymer-idb/polymer-idb.html">
 
 <polymer-element name="memol-card-list" attributes="items" on-insert="{{insert}}">
   <template>
@@ -8,12 +9,17 @@
       }
     </style>
     <div class="memol-card-list" flex horizontal wrap layout>
-      <template repeat="{{item in items}}">
-        <memol-card
-          item="{{item}}"
-          on-insert="{{insert}}"
-          on-update="{{update}}"
-          on-delete="{{delete}}">
+      <polymer-idb id="idb"
+                   database="memol"
+                   version="1"
+                   object-store="memol"
+                   key-path="uuid"
+                   auto-increment="true"></polymer-idb>
+      <template repeat="{{item, index in items}}">
+        <memol-card item="{{item}}"
+                    on-insert="{{insert}}"
+                    on-update="{{update}}"
+                    on-delete="{{delete}}">
         </memol-card>
       </template>
     </div>
@@ -22,23 +28,58 @@
     Polymer('memol-card-list', {
       items: [],
       ready: function() {
-        var themes = ['yellow', 'blue', 'green', 'pink'];
-        for (var i = 0; i < 10; i++) {
-          this.items.push({
-            uuid: i,
-            text: 'メロスは激怒した。必ず、かの邪智暴虐の王を除かなければならぬと決意した。メロスには政治がわからぬ。メロスは、村の牧人である。笛を吹き、羊と遊んで暮して来た。けれども邪悪に対しては、人一倍に敏感であった。',
-            theme: themes[(Math.random() * themes.length) >>> 0]}
-          );
-        };
+        var that = this;
+        this.$.idb.addEventListener('idb-ready', function() {
+          this.getAll().then(function(items) {
+            that.items = items;
+          });
+        });
       },
       insert: function(event, detail, sender) {
-        console.log('insert');
+        var that   = this;
+        var themes = ['yellow', 'blue', 'green', 'pink'];
+        var item   = {
+          text : '',
+          theme: themes[(Math.random() * themes.length) >>> 0],
+        }
+
+        this.$.idb.put(item).then(function() {
+          that.$.idb.getAll().then(function(items) {
+            that.items = items;
+          });
+        });
       },
       update: function(event, detail, sender) {
-        console.log('update => ' + detail.uuid);
+        var that = this;
+        var item = null;
+        for (var i = 0; i < this.items.length; i++) {
+          if (detail.uuid == this.items[i].uuid) {
+            item = this.items[i];
+            break;
+          }
+        }
+
+        if (item) {
+          this.$.idb.delete(detail.uuid).then(function() {
+            that.$.idb.put(item);
+          });
+        }
       },
-      delete: function (event, detail, sender) {
-        console.log('delete => ' + detail.uuid);
+      delete: function(event, detail, sender) {
+        var that  = this;
+        var index = null;
+        for (var i = 0; i < this.items.length; i++) {
+          if (detail.uuid == this.items[i].uuid) {
+            index = i;
+            break;
+          }
+        }
+
+        if (index) {
+          this.$.idb.delete(detail.uuid).then(function() {
+            that.items.splice(index, 1);
+          });
+        }
       }
     });
   </script>

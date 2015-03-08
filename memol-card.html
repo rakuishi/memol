@@ -51,7 +51,7 @@
     </style>
     <div class="memol-card bgcolor-{{item.theme}}" vertical layout>
       <div class="text">
-        <textarea on-change="{{onChange}}">{{item.text}}</textarea>
+        <textarea on-change="{{onChange}}" value="{{item.text}}"></textarea>
       </div>
       <div class="edit">
         <span class="delete" on-tap="{{onTap}}">Delete</span>
