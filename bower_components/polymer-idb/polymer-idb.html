@@ -8,12 +8,15 @@
     }
   </style>
   <script>
+    // Cache connetions to open database
     var database = {};
+
     // Use RSVP polyfill if Promise is not available
     var Promise = window.Promise || RSVP.Promise;
 
     Polymer('polymer-idb', {
       db: null,
+      dbReady: false,
       /**
        * opens database upon `ready` event
        * @return {void}
@@ -28,13 +31,14 @@
         }
 
         // Check if attributes are properly set
-        if (!this.database || !this.version || !this['object-store']) {
-          console.error('You need to set `database`, `version` and `object-store` to enable `polymer-idb` element.');
+        if (!this.database || !this.version || !this['object-store'] || !this['key-path']) {
+          console.error('You need to set `database`, `version`, `object-store` and `key-path` to enable `polymer-idb` element.');
           return;
         }
 
         // Open the database
         this.openDatabase().then(function() {
+          that.dbReady = true;
           that.fire('idb-ready');
         });
       },
@@ -93,13 +97,9 @@
       createObjectStore: function() {
         // Does the object store exist?
         if (!this.db.objectStoreNames.contains(this['object-store'])) {
-          var keyPath = null;
-          // If `key-path` is configured, set it as a key
-          if (this['key-path']) {
-            keyPath = {keyPath: this['key-path']};
-          }
+          var params = {keyPath: this['key-path'], autoIncrement: true};
           // Create the object store
-          this.db.createObjectStore(this['object-store'], keyPath);
+          this.db.createObjectStore(this['object-store'], params);
         }
       },
       /**

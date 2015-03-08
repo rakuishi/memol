@@ -1,6 +1,5 @@
 {
   "name": "polymer-idb",
-  "version": "0.1.2",
   "authors": [
     "Eiji Kitamura <agektmr+github@gmail.com>"
   ],
@@ -24,13 +23,13 @@
     "polymer": "~0.5.2",
     "rsvp": "~3.0.16"
   },
-  "_release": "0.1.2",
+  "_release": "c52e61b9a7",
   "_resolution": {
-    "type": "version",
-    "tag": "0.1.2",
-    "commit": "122046b26dfb6e5ad61092b15f216157e1cee8b5"
+    "type": "branch",
+    "branch": "master",
+    "commit": "c52e61b9a7fa027ab34643737b524c7fccbe4bf2"
   },
-  "_source": "git://github.com/agektmr/polymer-idb.git",
-  "_target": "^0.1.0",
-  "_originalSource": "agektmr/polymer-idb"
+  "_source": "git://github.com/rakuishi/polymer-idb.git",
+  "_target": "master",
+  "_originalSource": "rakuishi/polymer-idb"
 }

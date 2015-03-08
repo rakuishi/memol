@@ -22,6 +22,6 @@
     "polymer": "Polymer/polymer#^0.5",
     "core-icon-button": "Polymer/core-icon-button#^0.5",
     "core-toolbar": "Polymer/core-toolbar#^0.5",
-    "polymer-idb": "agektmr/polymer-idb#^0.1.0"
+    "polymer-idb": "rakuishi/polymer-idb#master"
   }
 }
