@@ -75,7 +75,7 @@
           }
         }
 
-        if (index) {
+        if (index != null) {
           this.$.idb.delete(detail.uuid).then(function() {
             that.items.splice(index, 1);
           });
